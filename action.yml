@@ -73,6 +73,10 @@ inputs:
     description: "Sets the composer memory limit"
     required: false
 
+  docker_user:
+    description: "Sets the user uid with which docker will run composer"
+    required: false
+
 outputs:
   full_command:
     description: "The full command passed to docker to run"
@@ -99,6 +103,7 @@ runs:
         ACTION_SSH_PORT: ${{ inputs.ssh_port }}
         ACTION_WORKING_DIR: ${{ inputs.working_dir }}
         ACTION_MEMORY_LIMIT: ${{ inputs.memory_limit }}
+        ACTION_DOCKER_USER: ${{ inputs.docker_user }}
       id: composer_run
       run: |
         set -e

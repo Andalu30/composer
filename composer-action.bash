@@ -170,6 +170,14 @@ else
   memory_limit=''
 fi
 
+if [ -n "$ACTION_DOCKER_USER" ]
+then
+  docker_user="--user $ACTION_DOCKER_USER"
+else
+  docker_user=''
+fi
+
+
 echo "Command: $command_string" >> output.log 2>&1
 mkdir -p /tmp/composer-cache
 
@@ -205,5 +213,6 @@ docker run --rm \
 	--workdir /app \
 	--env-file ./DOCKER_ENV \
 	--network host \
+	${docker_user} \
 	${memory_limit} \
 	${docker_tag} ${command_string}
